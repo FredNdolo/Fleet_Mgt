@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from database import Base
 from datetime import datetime
 
+
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
@@ -18,6 +19,7 @@ class User(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     activities = relationship("UserActivity", back_populates="user")
 
+
 class UserActivity(Base):
     __tablename__ = "user_activity"
     activity_id = Column(Integer, primary_key=True, index=True)
@@ -26,6 +28,7 @@ class UserActivity(Base):
     action_details = Column(Text)
     timestamp = Column(DateTime, default=datetime.utcnow)
     user = relationship("User", back_populates="activities")
+
 
 class Vehicle(Base):
     __tablename__ = "vehicles"
@@ -47,6 +50,7 @@ class Vehicle(Base):
     costs = relationship("Cost", back_populates="vehicle")
     maintenance_records = relationship("MaintenanceRecord", back_populates="vehicle")
 
+
 class Driver(Base):
     __tablename__ = "drivers"
     id = Column(Integer, primary_key=True, index=True)
@@ -66,6 +70,7 @@ class Driver(Base):
     documents = relationship("DriverDocument", back_populates="driver")
     costs = relationship("Cost", back_populates="driver")
 
+
 class DriverDocument(Base):
     __tablename__ = "driver_documents"
     doc_id = Column(Integer, primary_key=True, index=True)
@@ -78,6 +83,7 @@ class DriverDocument(Base):
     file_path = Column(String)
     driver = relationship("Driver", back_populates="documents")
 
+
 class VehicleDocument(Base):
     __tablename__ = "vehicle_documents"
     doc_id = Column(Integer, primary_key=True, index=True)
@@ -89,6 +95,7 @@ class VehicleDocument(Base):
     status = Column(String)
     file_path = Column(String)
     vehicle = relationship("Vehicle", back_populates="documents")
+
 
 class Cost(Base):
     __tablename__ = "costs"
@@ -104,6 +111,7 @@ class Cost(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
     vehicle = relationship("Vehicle", back_populates="costs")
     driver = relationship("Driver", back_populates="costs")
+
 
 class MaintenanceRecord(Base):
     __tablename__ = "maintenance_records"
